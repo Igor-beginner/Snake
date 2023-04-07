@@ -7,11 +7,10 @@ public class DefaultMap implements Map{
     private final static Designations FENCE = new Designations('#', -1);
     private final static Designations SPACE = new Designations(' ', 0);
 
-    private int x = 10;
-    private int y = 10;
+    private int x = 23;
+    private int y = 20;
 
     private Random random = new Random();
-    private List<Point> freeSpace = new ArrayList<>();
 
     private Designations[][] map = new Designations[y][x];
 
@@ -24,7 +23,8 @@ public class DefaultMap implements Map{
         }
         map[map.length - 1] = boardTop;
     }
-    private void findFreeSpace(){
+    private List<Point> findFreeSpace(){
+        List<Point> freeSpace = new ArrayList<>();
         for(int y = 0; y < this.y; y++){
             for(int x = 0; x < this.x; x++){
                 if (map[y][x] == SPACE){
@@ -32,6 +32,7 @@ public class DefaultMap implements Map{
                 }
             }
         }
+        return freeSpace;
     }
 
     private Designations[] buildTopBoard(Designations stuff){
@@ -64,12 +65,35 @@ public class DefaultMap implements Map{
 
     @Override
     public Point getRandomFreeSpace() {
-        findFreeSpace();
+        List<Point> freeSpace = findFreeSpace();
         return freeSpace.get((int)(Math.random() * freeSpace.size()));
     }
 
     public void draw(Point pos, Designations item){
         map[pos.y][pos.x] = item;
-        System.out.println(map);
+    }
+    public boolean delete(Designations item){
+        boolean anyDeleted = false;
+        for (int y = 0; y < this.y; y++){
+            for(int x = 0; x < this.x; x++){
+                if(map[y][x] == item){
+                    map[y][x] = SPACE;
+                    anyDeleted = true;
+                }
+            }
+        }
+        return anyDeleted;
+    }
+
+    public void delete(Point pos){
+        map[pos.y][pos.x] = SPACE;
+    }
+
+    public boolean ableForMove(Point point){
+        return map[point.y][point.x] != FENCE && map[point.y][point.x] != Snake.getDestination();
+    }
+
+    public Designations getObject(Point point){
+        return map[point.y][point.x];
     }
 }

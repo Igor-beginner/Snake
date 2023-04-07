@@ -5,13 +5,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Snake {
-    private char designation = '*';
-    private int code = 5;
+    private static final Designations SNAKE = new Designations('*', 4);
+    private DefaultMap map;
     private LinkedList<Point> body = new LinkedList<>();
     private boolean spawn = false;
     private Direction currentDirection;
     private Point hotStep;
     private Point head;
+
+
+    public Snake(DefaultMap map) {
+        this.map = map;
+    }
 
     public LinkedList<Point> getBody() {
         return body;
@@ -32,8 +37,32 @@ public class Snake {
     public void move(){
         hotStep = getTailPosition();
         head = body.getFirst();
-        body.removeLast();
-        body.addFirst(new Point(head.x, head.y + 1));
+        Point headNextPosition = null;
+        switch (currentDirection) {
+            case UP:
+                headNextPosition = new Point(this.head.x, this.head.y - 1);
+                break;
+            case DOWN:
+                headNextPosition = new Point(this.head.x, this.head.y + 1);
+                break;
+            case LEFT:
+                headNextPosition = new Point(this.head.x - 1, this.head.y);
+                break;
+            case RIGHT:
+                headNextPosition = new Point(this.head.x + 1, this.head.y);
+                break;
+        }
+        if (!map.ableForMove(headNextPosition)){
+            Game.getInstance().gameOver();
+            return;
+        }
+        if(map.getObject(headNextPosition) == Apple.DESIGNATION){
+            Game game = Game.getInstance();
+            game.eat();
+        }
+        body.addFirst(headNextPosition);
+        Point point = body.removeLast();
+        map.delete(point);
     }
 
     public void setDirection(Direction currentDirection) {
@@ -45,7 +74,15 @@ public class Snake {
             throw new RuntimeException("Snake was created yet");
         }
         spawn = true;
-        body.add(new Point(10,10));
+        body.add(map.getRandomFreeSpace());
+
     }
 
+    public Direction getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public static Designations getDestination() {
+        return SNAKE;
+    }
 }
