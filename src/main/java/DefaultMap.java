@@ -20,7 +20,7 @@ public class DefaultMap implements Map{
         Designations[] side = buildSide();
         map[0] = boardTop;
         for (int i = 1; i < map.length - 1; i++){
-            map[i] = side;
+            map[i] = side.clone();
         }
         map[map.length - 1] = boardTop;
     }
