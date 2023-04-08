@@ -1,10 +1,11 @@
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 import org.json.JSONWriter;
 
 import java.awt.*;
-import java.io.File;
+import java.io.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,17 +48,11 @@ public class Game {
             CONSOLE.clear();
             GAME.update(8);
         }
-//        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-//        String path = classLoader.getResource("Best score.txt").getPath();
-//        JSONObject json = new JSONObject(path);
-//        int bestScore = json.getInt("level1");
-//        if(bestScore > game.score){
-//            System.out.println("Your new best score - " + game.score);
-//            System.out.println("Was - " + bestScore);
-//        }
-        System.out.println("\n- - - - - - - - - - - - - - - - - - - - - - - - \n");
-        System.out.println("            * G A M E   O V E R * \n");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - ");
+
+
+//        System.out.println("\n- - - - - - - - - - - - - - - - - - - - - - - - \n");
+//        System.out.println("            * G A M E   O V E R * \n");
+//        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - ");
     }
 
     public void update(int fps) {
