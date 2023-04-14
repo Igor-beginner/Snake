@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class TickAction<T> implements Iterator<T> {
@@ -30,7 +31,7 @@ public class TickAction<T> implements Iterator<T> {
     }
 
     private T getLast(){
-        for (int i = ticks.length - 1; i >= 0; i--){
+        for (int i = 0; i < ticks.length; i++){
             T checking = ticks[i];
             if(checking != null){
                 ticks[i] = null;
@@ -44,6 +45,7 @@ public class TickAction<T> implements Iterator<T> {
         for (int i = 0; i < ticks.length - 1; i++){
             ticks[i] = ticks[i + 1];
         }
+        ticks[ticks.length - 1] = null;
     }
 
     private boolean isEntire(){
@@ -82,6 +84,6 @@ public class TickAction<T> implements Iterator<T> {
 
     @Override
     public String toString() {
-        return String.format("[ %s, %s ]", ticks[0], ticks[1]);
+        return Arrays.toString(ticks);
     }
 }
