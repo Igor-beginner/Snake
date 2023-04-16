@@ -17,6 +17,7 @@ public class SnakeTest {
         levelManage = Level.BEGINNER;
         snake = new Snake(levelManage);
         snake.spawn();
+        snake.setStrategy(MoveFactory.UP);
     }
 
     @Test

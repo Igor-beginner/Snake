@@ -64,6 +64,23 @@ public class Level implements LevelManage{
         return map.getBoard()[pos.y][pos.x] != FENCE && map.getBoard()[pos.y][pos.x] != Snake.SNAKE;
     }
 
+    public List<Point> getPositionBy(Designations object){
+        List<Point> listPoints = new ArrayList<>();
+        for(int y = 0; y < map.getSize().height; y++){
+            for(int x = 0; x < map.getSize().width; x++){
+                if(map.getBoard()[y][x] == object){
+                    listPoints.add(new Point(x, y));
+                }
+            }
+        }
+        return listPoints;
+    }
+
+    @Override
+    public void add(GameObject go) {
+        add(go, go.getPosition());
+    }
+
     public int getFps() {
         return fps;
     }

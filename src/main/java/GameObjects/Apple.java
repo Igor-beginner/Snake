@@ -18,8 +18,8 @@ public class Apple implements Observer, GameObject {
     }
 
     @Override
-    public void updateLocation(Point pos, LevelManage map) {
-        if (pos.x == location.x && pos.y == location.y){
+    public void updateLocation(Point snakeHeadPosition, LevelManage map) {
+        if (snakeHeadPosition.x == location.x && snakeHeadPosition.y == location.y){
             respawn(map);
         }
     }
