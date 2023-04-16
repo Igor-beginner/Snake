@@ -1,4 +1,9 @@
-import org.jnativehook.NativeInputEvent;
+package Controllers;
+
+import GameObjects.Direction;
+import GameObjects.MoveFactory;
+import GameObjects.Snake;
+import GameObjects.Strategy;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
@@ -10,23 +15,23 @@ public class Events implements NativeKeyListener{
     }
 
     public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
-        Direction current = snake.getCurrentDirection();
+        Strategy current = snake.getStrategy();
         switch (nativeKeyEvent.getKeyCode()){
             case NativeKeyEvent.VC_UP:
-                if(current != Direction.DOWN)
-                 snake.setDirection(Direction.UP);
+                if(current != MoveFactory.DOWN)
+                    Game.getInstance().setCurrentStrategy(MoveFactory.UP);
                 break;
             case NativeKeyEvent.VC_DOWN:
-                if(current != Direction.UP)
-                    snake.setDirection(Direction.DOWN);
+                if(current != MoveFactory.UP)
+                    Game.getInstance().setCurrentStrategy(MoveFactory.DOWN);
                 break;
             case NativeKeyEvent.VC_LEFT:
-                if(current != Direction.RIGHT)
-                    snake.setDirection(Direction.LEFT);
+                if(current != MoveFactory.RIGHT)
+                    Game.getInstance().setCurrentStrategy(MoveFactory.LEFT);
                 break;
             case NativeKeyEvent.VC_RIGHT:
-                if(current != Direction.LEFT)
-                    snake.setDirection(Direction.RIGHT);
+                if(current != MoveFactory.LEFT)
+                    Game.getInstance().setCurrentStrategy(MoveFactory.RIGHT);
                 break;
         }
         synchronized (Game.getInstance()){

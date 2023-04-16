@@ -1,3 +1,5 @@
+package GameObjects;
+
 public class Designations {
     private char designation;
     private int code;
